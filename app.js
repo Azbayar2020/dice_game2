@@ -1,10 +1,13 @@
 var activePlayer;
 var scores;
 var roundScore;
-
+var isNewGame;
 var diceDom = document.querySelector(".dice");
 
+initGame();
+
 function initGame() {
+    isNewGame = true;
     // Тоглогчийн ээлжийг хадгалсан хувьсагч, 1-р тоглогч 0, 2-р тоглогч 1
     activePlayer = 0;
     //Тоглогчдийн цуглуулсан оноог хадгалсан хувьсагч
@@ -22,20 +25,25 @@ function initGame() {
     document.getElementById('name-0').textContent = "Player -1";
     document.getElementById('name-1').textContent = "Player -2";
 }
-initGame();
-document.querySelector(".btn-roll").addEventListener("click", shooShid);
 
-function shooShid() {
-    var diceNumber = Math.floor(Math.random() * 6) + 1;
-    diceDom.style.display = "block";
-    diceDom.src = "dice-" + diceNumber + ".png";
-    if (diceNumber !== 1) {
-        roundScore = roundScore + diceNumber;
-        document.getElementById('current-' + activePlayer).textContent = roundScore;
+document.querySelector(".btn-roll").addEventListener("click", function() {
+    if (isNewGame) {
+
+        var diceNumber = Math.floor(Math.random() * 6) + 1;
+        diceDom.style.display = "block";
+        diceDom.src = "dice-" + diceNumber + ".png";
+        if (diceNumber !== 1) {
+            roundScore = roundScore + diceNumber;
+            document.getElementById('current-' + activePlayer).textContent = roundScore;
+        } else {
+            switchNextPlayer();
+        }
+
     } else {
-        switchNextPlayer();
+        alert("Тоглоом дууссан байна.New game товчийг дарснаар дахин тоглоно уу");
     }
-}
+});
+
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
     scores[activePlayer] = scores[activePlayer] + roundScore;
@@ -43,6 +51,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
     if (scores[activePlayer] >= 20) {
         document.getElementById('name-' + activePlayer).textContent = "Winner!!!";
+        isNewGame = false;
     } else {
         switchNextPlayer();
     }
