@@ -1,21 +1,28 @@
-// Тоглогчийн ээлжийг хадгалсан хувьсагч, 1-р тоглогч 0, 2-р тоглогч 1
-var activePlayer = 0;
+var activePlayer;
+var scores;
+var roundScore;
 
-
-//Тоглогчдийн цуглуулсан оноог хадгалсан хувьсагч
-var scores = [0, 0];
-
-// Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore = 0;
-
-// Шооны аль ч талаараа буусныг хадгалах хувьсагч хэрэгтэй 1-6 гэсэн утга
-
-document.getElementById('score-0').textContent = "0";
-document.getElementById('score-1').textContent = "0";
-document.getElementById('current-0').textContent = "0";
-document.getElementById('current-1').textContent = "0";
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+
+function initGame() {
+    // Тоглогчийн ээлжийг хадгалсан хувьсагч, 1-р тоглогч 0, 2-р тоглогч 1
+    activePlayer = 0;
+    //Тоглогчдийн цуглуулсан оноог хадгалсан хувьсагч
+    scores = [0, 0];
+    // Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
+    roundScore = 0;
+    // Шооны аль ч талаараа буусныг хадгалах хувьсагч хэрэгтэй 1-6 гэсэн утга
+
+    document.getElementById('score-0').textContent = "0";
+    document.getElementById('score-1').textContent = "0";
+    document.getElementById('current-0').textContent = "0";
+    document.getElementById('current-1').textContent = "0";
+    diceDom.style.display = "none";
+
+    document.getElementById('name-0').textContent = "Player -1";
+    document.getElementById('name-1').textContent = "Player -2";
+}
+initGame();
 document.querySelector(".btn-roll").addEventListener("click", shooShid);
 
 function shooShid() {
@@ -39,9 +46,6 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     } else {
         switchNextPlayer();
     }
-
-
-
 });
 
 function switchNextPlayer() {
@@ -59,3 +63,5 @@ function switchNextPlayer() {
     document.querySelector('.player-1-panel').classList.toggle('active');
     diceDom.style.display = "none";
 }
+
+document.querySelector('.btn-new').addEventListener('click', initGame);
