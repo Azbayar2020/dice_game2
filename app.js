@@ -28,7 +28,6 @@ function initGame() {
 
 document.querySelector(".btn-roll").addEventListener("click", function() {
     if (isNewGame) {
-
         var diceNumber = Math.floor(Math.random() * 6) + 1;
         diceDom.style.display = "block";
         diceDom.src = "dice-" + diceNumber + ".png";
@@ -49,7 +48,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     scores[activePlayer] = scores[activePlayer] + roundScore;
     document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 100) {
         document.getElementById('name-' + activePlayer).textContent = "Winner!!!";
         isNewGame = false;
     } else {
