@@ -10,7 +10,6 @@ var roundScore = 0;
 
 // Шооны аль ч талаараа буусныг хадгалах хувьсагч хэрэгтэй 1-6 гэсэн утга
 
-
 document.getElementById('score-0').textContent = "0";
 document.getElementById('score-1').textContent = "0";
 document.getElementById('current-0').textContent = "0";
@@ -27,16 +26,36 @@ function shooShid() {
         roundScore = roundScore + diceNumber;
         document.getElementById('current-' + activePlayer).textContent = roundScore;
     } else {
-        document.getElementById('current-' + activePlayer).textContent = 0;
-        roundScore = 0;
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-        diceDom.style.display = "none";
-        if (activePlayer === 0) {
-            activePlayer = 1;
-
-        } else {
-            activePlayer = 0;
-        }
+        switchNextPlayer();
     }
+}
+
+document.querySelector('.btn-hold').addEventListener('click', function() {
+    scores[activePlayer] = scores[activePlayer] + roundScore;
+    document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
+
+    if (scores[activePlayer] >= 20) {
+        document.getElementById('name-' + activePlayer).textContent = "Winner!!!";
+    } else {
+        switchNextPlayer();
+    }
+
+
+
+});
+
+function switchNextPlayer() {
+    document.getElementById('current-' + activePlayer).textContent = 0;
+    roundScore = 0;
+
+    if (activePlayer === 0) {
+        activePlayer = 1;
+
+    } else {
+        activePlayer = 0;
+    }
+
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+    diceDom.style.display = "none";
 }
